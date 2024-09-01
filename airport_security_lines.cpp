@@ -1,12 +1,11 @@
 #include <iostream>
 #include <queue>
-#include <random>
 #include <chrono>
 #include <thread>
 #include <vector>
 #include <mutex>
 #include <condition_variable>
-
+#include "Passenger.h"
 using namespace std;
 
 #define SIMULATION_TIME 100000.0
@@ -14,28 +13,6 @@ using namespace std;
 double arrival_rate = 3; // λ
 double service_rate = 6; // μ
 double global_time = 0;
-
-class Passenger
-{
-public:
-    int inter_arrival_time;
-    int global_arrival_time;
-    int processing_time;
-
-    Passenger(double arrival_rate, double service_rate)
-    {
-        default_random_engine generator(random_device{}());
-        exponential_distribution<double> arrival_distribution(arrival_rate);
-        exponential_distribution<double> processing_distribution(service_rate);
-
-        inter_arrival_time = static_cast<int>(arrival_distribution(generator) * 1000);
-        processing_time = static_cast<int>(processing_distribution(generator) * 1000);
-
-        global_time += inter_arrival_time;
-        global_arrival_time = global_time;
-        cout << "Created passenger has values : " << inter_arrival_time << " " << processing_time << "\n";
-    }
-};
 
 double total_waiting_time = 0.0;
 double start_proc_time = 0.0; // start processing time for a particular passenger in the service center
