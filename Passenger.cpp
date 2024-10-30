@@ -1,15 +1,29 @@
-#include <Passenger.h>
+// Passenger.cpp
+#include "Passenger.h"
+#include "Globals.h"
+#include <random>
+#include <chrono>
+#include <iostream>
+#include <mutex>
+
+// External variables
+extern int passenger_number;
+extern double gt;
+extern std::mutex log_mtx;
 
 Passenger::Passenger(double arrival_rate, double service_rate)
 {
-    default_random_engine generator(random_device{}());
-    exponential_distribution<double> arrival_distribution(arrival_rate);
-    exponential_distribution<double> processing_distribution(service_rate);
+    static std::default_random_engine generator(std::chrono::system_clock::now().time_since_epoch().count());
+    std::exponential_distribution<double> arrival_distribution(arrival_rate);
+    std::exponential_distribution<double> processing_distribution(service_rate);
 
-    inter_arrival_time = static_cast<int>(arrival_distribution(generator) * 1000);
-    processing_time = static_cast<int>(processing_distribution(generator) * 1000);
+    _id = passenger_number++;
+    _interArrivalTime = arrival_distribution(generator);
+    gt += _interArrivalTime;
+    _globalArrivalTime = gt;
+    _processing_time = processing_distribution(generator);
 
-    global_time += inter_arrival_time;
-    global_arrival_time = global_time;
-    std::cout << "Created passenger has values : " << inter_arrival_time << " " << processing_time << "\n";
+    log_mtx.lock();
+    std::cout << "\n\nPassenger Number : " << _id << "\nArrival Time : " << _interArrivalTime << ", Service Time : " << _processing_time;
+    log_mtx.unlock();
 }
