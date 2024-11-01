@@ -1,6 +1,6 @@
 # Passenger Recovery Simulation
 
-This project implements a **queuing system simulation** to model passenger handling at airport security. By applying **queuing theory**, it evaluates different scenarios and optimizes passenger processing based on **arrival rate, service rate, and buffer size**. The simulation offers insights into system performance for **single-server** and **multi-server** models, both with **finite** and **infinite buffers**.
+This project implements a **queuing system simulation** in **C++** to model passenger handling at airport security. By applying **queuing theory**, it evaluates different scenarios and optimizes passenger processing based on **arrival rate, service rate, and buffer size**. The simulation offers insights into system performance for **single-server** and **multi-server** models, both with **finite** and **infinite buffers**.
 
 ### Project Overview
 
@@ -28,9 +28,6 @@ These metrics provide valuable insights for optimizing airport security handling
 - [Options Menu](#options-menu)
 - [Installation and Running the Simulation](#installation-and-running-the-simulation)
 - [Implementation Approach](#implementation-approach)
-- [Results](#results)
-- [Conclusions](#conclusions)
-
 ---
 
 ### Features
@@ -93,7 +90,10 @@ The simulation applies **queuing theory** to model passengers arriving and being
 1. **Passenger Class**: Represents each passenger, including their unique ID, inter-arrival time, arrival time, and processing time.
 2. **Single-Server and Multi-Server Systems**: Different functions manage the queue based on whether it’s a single-server or multi-server system.
 3. **Infinite and Finite Buffers**: The buffer size determines whether passengers are added to the queue or dropped if the queue is full.
-4. **Metrics Calculation**: Tracks waiting time, queue length, and server utilization.
+4. **Multithreading**: To handle arrivals and processing in parallel, the simulation uses multithreading. Separate threads are created for passenger arrivals and processing, allowing the system to realistically simulate simultaneous events and maintain accurate timing.
+5. **Mutex for Thread Safety**: Mutexes are used to protect shared resources (like queues and counters) across threads, ensuring thread-safe operations. Each server has its own mutex, and a global mutex is applied to shared data, preventing race conditions during the arrival and service processes.
+6. **Metrics Calculation**: Tracks waiting time, queue length, and server utilization by accumulating values across the simulation time. These metrics offer insights into performance for each configuration.
 
 Each of these components plays a role in providing insights into system performance and optimizing passenger handling at airport security.
+
 
