@@ -81,8 +81,8 @@ The project simulates queuing models for airport security lines. Here’s a brea
 #### Queuing Theory Concepts
 
 The simulation applies **queuing theory** to model passengers arriving and being processed at security checkpoints. The key components include:
-- **Arrival Process**: Passengers arrive at the checkpoint based on an exponential distribution (Poisson process) governed by the arrival rate \( \lambda \).
-- **Service Process**: Passengers are processed by a server based on a service rate \( \mu \), also following an exponential distribution.
+- **Arrival Process**: Passengers arrive at the checkpoint based on an exponential distribution (Poisson process) governed by the arrival rate $\lambda$.
+- **Service Process**: Passengers are processed by a server based on a service rate $\mu$ , also following an exponential distribution.
 - **Buffering**: The queue may have a finite or infinite capacity, representing whether or not it can accommodate an unlimited number of passengers.
 
 #### Simulation Components
